@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>My Lab Blog</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on My Lab Blog</description>
+    <generator>Hugo -- 0.151.0</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Oct 2025 17:44:05 -0600</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lab Initializer</title>
+      <link>http://localhost:1313/posts/first-post/</link>
+      <pubDate>Thu, 09 Oct 2025 17:44:05 -0600</pubDate>
+      <guid>http://localhost:1313/posts/first-post/</guid>
+      <description>&lt;p&gt;Hello world! 👋&lt;/p&gt;
+&lt;p&gt;In this initial blog entry, I’ll be documenting the journey of creating a &lt;strong&gt;home lab&lt;/strong&gt; from scratch on bare metal.&lt;br&gt;
+The goal is to practice cloud and DevOps workflows using real infrastructure and automation tools.&lt;/p&gt;
+&lt;p&gt;This blog will serve as a personal knowledge base, a way to share insights, and a log of the steps I take — including the mistakes, fixes, and lessons learned along the way.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
