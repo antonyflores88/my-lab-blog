@@ -2,3 +2,5 @@ baseURL = "https://antonyflores88.github.io/my-lab-blog/"
 languageCode = "en-us"
 title = "My Lab Blog"
 theme = "PaperMod"
+[params.assets]
+disableFingerprinting = true
