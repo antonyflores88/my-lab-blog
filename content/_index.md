@@ -11,7 +11,6 @@ draft: false
 </div>
 
 
-
 # 👋 Hey, I'm Tony
 ### Cloud & DevOps Enthusiast
 
@@ -33,9 +32,6 @@ Exploring the intersection of **cloud engineering** and **automation** through l
     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" width="28" height="28" alt="X">
   </a>
 </div>
-
-
-
 
 </center>
 
