@@ -9,8 +9,11 @@ theme = "PaperMod"
   mainSections = []
   customCSS = ["css/custom.css"]
 
-[params.assets]
-disableFingerprinting = true
+  [params.assets]
+    disableFingerprinting = true
+
+
+
 
 [menu]
   [[menu.main]]
