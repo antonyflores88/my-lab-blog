@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Welcome on Tony Cloud Journey</title>
+    <link>https://antonyflores88.github.io/my-lab-blog/</link>
+    <description>Recent content in Welcome on Tony Cloud Journey</description>
+    <generator>Hugo -- 0.151.0</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://antonyflores88.github.io/my-lab-blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/about/</link>
+      <pubDate>Sat, 11 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/about/</guid>
+      <description>&lt;p&gt;Hi, I&amp;rsquo;m &lt;strong&gt;Tony&lt;/strong&gt; — exploring the world of &lt;strong&gt;Cloud Engineering&lt;/strong&gt; and &lt;strong&gt;DevOps&lt;/strong&gt; through hands-on projects.&lt;br&gt;
+This site is where I document my learning path, experiments, and lessons from both &lt;strong&gt;local server labs&lt;/strong&gt; and &lt;strong&gt;Azure&lt;/strong&gt; environments.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m currently building experience with:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Terraform automation&lt;/li&gt;
+&lt;li&gt;Docker containers&lt;/li&gt;
+&lt;li&gt;CI/CD pipelines&lt;/li&gt;
+&lt;li&gt;Microsoft 365 and Azure administration&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here I share everything I learn — the wins, the failures, and the “aha” moments.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Building My Cloud Journey</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/posts/my-first-lab/</link>
+      <pubDate>Sat, 11 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/posts/my-first-lab/</guid>
+      <description>&lt;p&gt;Every great journey begins with curiosity and mine starts here.&lt;/p&gt;
+&lt;p&gt;I’m building a local lab environment using &lt;strong&gt;Terraform&lt;/strong&gt;, &lt;strong&gt;Docker&lt;/strong&gt;, and &lt;strong&gt;PowerShell&lt;/strong&gt; to simulate real cloud setups.&lt;br&gt;
+From there, I test deployments on &lt;strong&gt;Azure&lt;/strong&gt;, automate configurations, and learn how modern DevOps pipelines fit together.&lt;/p&gt;
+&lt;p&gt;If you’re exploring the same path, welcome aboard! Let’s learn and break things together.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
