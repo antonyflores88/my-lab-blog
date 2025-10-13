@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Netplan on Tony Cloud Journey</title>
+    <link>https://antonyflores88.github.io/my-lab-blog/tags/netplan/</link>
+    <description>Recent content in Netplan on Tony Cloud Journey</description>
+    <generator>Hugo -- 0.151.0</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 13 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://antonyflores88.github.io/my-lab-blog/tags/netplan/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>From Old Mac to DevOps Lab – Part 2: Wi-Fi and Static IP with Netplan</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/posts/mac-server01/</link>
+      <pubDate>Mon, 13 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/posts/mac-server01/</guid>
+      <description>Setting up Wi-Fi and a permanent IP on my headless Ubuntu Server Mac using Netplan. No GUI, no clicks — just YAML and results.</description>
+    </item>
+  </channel>
+</rss>

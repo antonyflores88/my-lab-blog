@@ -2,20 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/tags/devops-lab/</loc>
+    <lastmod>2025-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/posts/mac-server01/</loc>
+    <lastmod>2025-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/tags/netplan/</loc>
+    <lastmod>2025-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/posts/</loc>
+    <lastmod>2025-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/tags/static-ip/</loc>
+    <lastmod>2025-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/tags/</loc>
+    <lastmod>2025-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/tags/ubuntu-server/</loc>
+    <lastmod>2025-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/</loc>
+    <lastmod>2025-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/tags/wifi/</loc>
+    <lastmod>2025-10-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/posts/mac-server/</loc>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/tags/headless-setup/</loc>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/tags/linux/</loc>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://antonyflores88.github.io/my-lab-blog/tags/macbook/</loc>
+    <lastmod>2025-10-12T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://antonyflores88.github.io/my-lab-blog/about/</loc>
     <lastmod>2025-10-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://antonyflores88.github.io/my-lab-blog/posts/my-first-lab/</loc>
     <lastmod>2025-10-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://antonyflores88.github.io/my-lab-blog/posts/</loc>
-    <lastmod>2025-10-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://antonyflores88.github.io/my-lab-blog/</loc>
-    <lastmod>2025-10-11T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://antonyflores88.github.io/my-lab-blog/categories/</loc>
-  </url><url>
-    <loc>https://antonyflores88.github.io/my-lab-blog/tags/</loc>
   </url>
 </urlset>

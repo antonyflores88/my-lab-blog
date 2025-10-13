@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup) | Tony Cloud Journey</title>
+<meta name="keywords" content="Ubuntu Server, Linux, DevOps Lab, Headless Setup, MacBook">
+<meta name="description" content="Breathing new life into a 2012 MacBook by turning it into a lightweight Ubuntu Server — no GUI, no bloat, just pure performance.">
+<meta name="author" content="">
+<link rel="canonical" href="https://antonyflores88.github.io/my-lab-blog/posts/mac-server/">
+<link crossorigin="anonymous" href="/my-lab-blog/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://antonyflores88.github.io/my-lab-blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://antonyflores88.github.io/my-lab-blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://antonyflores88.github.io/my-lab-blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://antonyflores88.github.io/my-lab-blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://antonyflores88.github.io/my-lab-blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://antonyflores88.github.io/my-lab-blog/posts/mac-server/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://antonyflores88.github.io/my-lab-blog/posts/mac-server/">
+  <meta property="og:site_name" content="Tony Cloud Journey">
+  <meta property="og:title" content="From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup)">
+  <meta property="og:description" content="Breathing new life into a 2012 MacBook by turning it into a lightweight Ubuntu Server — no GUI, no bloat, just pure performance.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-10-12T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-10-12T00:00:00+00:00">
+    <meta property="article:tag" content="Ubuntu Server">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="DevOps Lab">
+    <meta property="article:tag" content="Headless Setup">
+    <meta property="article:tag" content="MacBook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup)">
+<meta name="twitter:description" content="Breathing new life into a 2012 MacBook by turning it into a lightweight Ubuntu Server — no GUI, no bloat, just pure performance.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://antonyflores88.github.io/my-lab-blog/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup)",
+      "item": "https://antonyflores88.github.io/my-lab-blog/posts/mac-server/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup)",
+  "name": "From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup)",
+  "description": "Breathing new life into a 2012 MacBook by turning it into a lightweight Ubuntu Server — no GUI, no bloat, just pure performance.",
+  "keywords": [
+    "Ubuntu Server", "Linux", "DevOps Lab", "Headless Setup", "MacBook"
+  ],
+  "articleBody": "From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup) I’ve had this old 2012 Intel MacBook collecting dust.\nEvery time I tried running Ubuntu Desktop on it, it turned into a hand-warmer instead of a computer.\nSo I thought: what if I strip it down completely?\nNo GUI, no fluff — just Ubuntu Server, running lean and cool, and see if I can turn it into a mini DevOps lab.\nThis post kicks off a short series where I rebuild that Mac into a proper remote server — the kind you’d use in the cloud — but running right at home.\nStep 1 — Download Ubuntu Server Head over to ubuntu.com/download/server and grab the latest LTS ISO (I used 24.x).\nOn Windows, I flashed it onto a USB stick with Rufus — choose “GPT / UEFI” if your Mac supports it.\nThen I plugged it into the Mac, held Option while booting, and selected the USB drive.\nStep 2 — The Installation During setup:\nPick Install Ubuntu Server, not “Try”. Choose your language, keyboard, and time zone. When it asks about network, plug in Ethernet for now — it’ll make everything smoother. Disk setup: I went for “Use entire disk” (this wipes it, so back up first). When it’s done, reboot and remove the USB.\nIf you did it right, you’ll land in a black login screen — no desktop, no icons, just a terminal blinking at you.\nPerfect.\nStep 3 — First Login and Update Login with the username you created.\nThen update the packages:\nsudo apt update \u0026\u0026 sudo apt upgrade -y sudo reboot Step 4 — Why Headless? No GUI = no wasted CPU cycles, no fans screaming, no lag. This Mac went from running hot to running quietly cool. And I’m not missing anything — I can do everything through SSH later.\nStep 5 — Next Up In Part 2, I’ll handle Wi-Fi and static IP setup using Netplan, so the Mac stays connected even without Ethernet. We’ll also prep it for remote access over SSH so I can control it entirely from my Windows machine.\nStay tuned — things are about to get real fun.\n",
+  "wordCount" : "365",
+  "inLanguage": "en",
+  "datePublished": "2025-10-12T00:00:00Z",
+  "dateModified": "2025-10-12T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://antonyflores88.github.io/my-lab-blog/posts/mac-server/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Tony Cloud Journey",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://antonyflores88.github.io/my-lab-blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://antonyflores88.github.io/my-lab-blog/" accesskey="h" title="Tony Cloud Journey (Alt + H)">Tony Cloud Journey</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://antonyflores88.github.io/my-lab-blog/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://antonyflores88.github.io/my-lab-blog/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://antonyflores88.github.io/my-lab-blog/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup)
+    </h1>
+    <div class="post-description">
+      Breathing new life into a 2012 MacBook by turning it into a lightweight Ubuntu Server — no GUI, no bloat, just pure performance.
+    </div>
+    <div class="post-meta"><span title='2025-10-12 00:00:00 +0000 UTC'>October 12, 2025</span>&nbsp;·&nbsp;<span>2 min</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="from-old-mac-to-devops-lab--part-1-installing-ubuntu-server-headless-setup">From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup)<a hidden class="anchor" aria-hidden="true" href="#from-old-mac-to-devops-lab--part-1-installing-ubuntu-server-headless-setup">#</a></h1>
+<p>I’ve had this old 2012 Intel MacBook collecting dust.<br>
+Every time I tried running Ubuntu Desktop on it, it turned into a hand-warmer instead of a computer.<br>
+So I thought: what if I strip it down completely?<br>
+No GUI, no fluff — just <strong>Ubuntu Server</strong>, running lean and cool, and see if I can turn it into a mini DevOps lab.</p>
+<p>This post kicks off a short series where I rebuild that Mac into a proper remote server — the kind you’d use in the cloud — but running right at home.</p>
+<hr>
+<h2 id="step-1--download-ubuntu-server">Step 1 — Download Ubuntu Server<a hidden class="anchor" aria-hidden="true" href="#step-1--download-ubuntu-server">#</a></h2>
+<p>Head over to <a href="https://ubuntu.com/download/server">ubuntu.com/download/server</a> and grab the latest LTS ISO (I used 24.x).<br>
+On Windows, I flashed it onto a USB stick with <strong>Rufus</strong> — choose “GPT / UEFI” if your Mac supports it.</p>
+<p>Then I plugged it into the Mac, held <code>Option</code> while booting, and selected the USB drive.</p>
+<hr>
+<h2 id="step-2--the-installation">Step 2 — The Installation<a hidden class="anchor" aria-hidden="true" href="#step-2--the-installation">#</a></h2>
+<p>During setup:</p>
+<ul>
+<li>Pick <strong>Install Ubuntu Server</strong>, not “Try”.</li>
+<li>Choose your language, keyboard, and time zone.</li>
+<li>When it asks about network, <strong>plug in Ethernet</strong> for now — it’ll make everything smoother.</li>
+<li>Disk setup: I went for “Use entire disk” (this wipes it, so back up first).</li>
+</ul>
+<p>When it’s done, reboot and remove the USB.<br>
+If you did it right, you’ll land in a black login screen — no desktop, no icons, just a terminal blinking at you.<br>
+Perfect.</p>
+<hr>
+<h2 id="step-3--first-login-and-update">Step 3 — First Login and Update<a hidden class="anchor" aria-hidden="true" href="#step-3--first-login-and-update">#</a></h2>
+<p>Login with the username you created.<br>
+Then update the packages:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update <span style="color:#f92672">&amp;&amp;</span> sudo apt upgrade -y
+</span></span><span style="display:flex;"><span>sudo reboot
+</span></span></code></pre></div><hr>
+<h2 id="step-4--why-headless">Step 4 — Why Headless?<a hidden class="anchor" aria-hidden="true" href="#step-4--why-headless">#</a></h2>
+<p>No GUI = no wasted CPU cycles, no fans screaming, no lag.
+This Mac went from running hot to running quietly cool.
+And I’m not missing anything — I can do everything through SSH later.</p>
+<hr>
+<h2 id="step-5--next-up">Step 5 — Next Up<a hidden class="anchor" aria-hidden="true" href="#step-5--next-up">#</a></h2>
+<p>In Part 2, I’ll handle Wi-Fi and static IP setup using Netplan, so the Mac stays connected even without Ethernet.
+We’ll also prep it for remote access over SSH so I can control it entirely from my Windows machine.</p>
+<p>Stay tuned — things are about to get real fun.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/ubuntu-server/">Ubuntu Server</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/linux/">Linux</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/devops-lab/">DevOps Lab</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/headless-setup/">Headless Setup</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/macbook/">MacBook</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://antonyflores88.github.io/my-lab-blog/">Tony Cloud Journey</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
