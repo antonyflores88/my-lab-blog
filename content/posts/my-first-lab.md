@@ -1,6 +1,6 @@
 ---
 title: "Building My Cloud Journey"
-date: 2025-10-09
+date: 2025-10-05
 draft: false
 ---
 
@@ -12,3 +12,6 @@ I’m building a local lab environment using **Terraform**, **Docker**, and **Po
 From there, I test deployments on **Azure**, automate configurations, and learn how modern DevOps pipelines fit together.
 
 If you’re exploring the same path, welcome aboard! Let’s learn and break things together.
+
+✦ Tony
+CloudPilot 365 | Because the cloud starts at home.

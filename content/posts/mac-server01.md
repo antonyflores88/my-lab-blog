@@ -1,7 +1,7 @@
 ---
 title: "From Old Mac to DevOps Lab – Part 2: Wi-Fi and Static IP with Netplan"
 description: "Setting up Wi-Fi and a permanent IP on my headless Ubuntu Server Mac using Netplan. No GUI, no clicks — just YAML and results."
-date: 2025-10-11
+date: 2025-10-08
 tags: [Ubuntu Server, Netplan, WiFi, Static IP, DevOps Lab]
 ---
 
@@ -102,8 +102,9 @@ Now that the server is fully on Wi-Fi with a static IP, the next step is making 
 
 In Part 3, we’ll:
 
-Enable SSH access from WSL (Windows Ubuntu).
+- **Enable SSH access from WSL (Windows Ubuntu).**
+- **Set up passwordless keys.**
+- **Add a few quality-of-life commands like a custom battery check and remote shutdown.**
 
-Set up passwordless keys.
-
-Add a few quality-of-life commands like a custom battery check and remote shutdown.
+✦ Tony
+CloudPilot 365 | Because the cloud starts at home.

@@ -1,7 +1,7 @@
 ---
 title: "From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup)"
 description: "Breathing new life into a 2012 MacBook by turning it into a lightweight Ubuntu Server — no GUI, no bloat, just pure performance."
-date: 2025-10-10
+date: 2025-10-07
 tags: [Ubuntu Server, Linux, DevOps Lab, Headless Setup, MacBook]
 ---
 
@@ -64,3 +64,6 @@ In Part 2, I’ll handle Wi-Fi and static IP setup using Netplan, so the Mac sta
 We’ll also prep it for remote access over SSH so I can control it entirely from my Windows machine.
 
 Stay tuned — things are about to get real fun.
+
+✦ Tony
+CloudPilot 365 | Because the cloud starts at home.
