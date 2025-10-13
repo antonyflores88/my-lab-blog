@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command &amp; Remote Control | Tony Cloud Journey</title>
+<meta name="keywords" content="Ubuntu Server, SSH, Automation, DevOps Lab, Remote Access">
+<meta name="description" content="Making my Ubuntu Server Mac completely headless — passwordless SSH, remote commands, and a custom battery check that works like magic.">
+<meta name="author" content="">
+<link rel="canonical" href="https://antonyflores88.github.io/my-lab-blog/posts/mac-server02/">
+<link crossorigin="anonymous" href="/my-lab-blog/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://antonyflores88.github.io/my-lab-blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://antonyflores88.github.io/my-lab-blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://antonyflores88.github.io/my-lab-blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://antonyflores88.github.io/my-lab-blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://antonyflores88.github.io/my-lab-blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://antonyflores88.github.io/my-lab-blog/posts/mac-server02/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://antonyflores88.github.io/my-lab-blog/posts/mac-server02/">
+  <meta property="og:site_name" content="Tony Cloud Journey">
+  <meta property="og:title" content="From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command & Remote Control">
+  <meta property="og:description" content="Making my Ubuntu Server Mac completely headless — passwordless SSH, remote commands, and a custom battery check that works like magic.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-10-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-10-09T00:00:00+00:00">
+    <meta property="article:tag" content="Ubuntu Server">
+    <meta property="article:tag" content="SSH">
+    <meta property="article:tag" content="Automation">
+    <meta property="article:tag" content="DevOps Lab">
+    <meta property="article:tag" content="Remote Access">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command &amp; Remote Control">
+<meta name="twitter:description" content="Making my Ubuntu Server Mac completely headless — passwordless SSH, remote commands, and a custom battery check that works like magic.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://antonyflores88.github.io/my-lab-blog/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command \u0026 Remote Control",
+      "item": "https://antonyflores88.github.io/my-lab-blog/posts/mac-server02/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command \u0026 Remote Control",
+  "name": "From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command \u0026 Remote Control",
+  "description": "Making my Ubuntu Server Mac completely headless — passwordless SSH, remote commands, and a custom battery check that works like magic.",
+  "keywords": [
+    "Ubuntu Server", "SSH", "Automation", "DevOps Lab", "Remote Access"
+  ],
+  "articleBody": "🖧 From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command \u0026 Remote Control By now the Mac is running Ubuntu Server, sitting on Wi-Fi with a static IP.\nTime to take it to the next level — full remote access from my Windows machine using WSL (Ubuntu on Windows).\nOnce I finished this part, I could log in, run updates, check the battery, even shut it down — all from my Windows terminal.\nNo more touching the Mac.\n🔹 Step 1 – Install SSH Server on the Mac On the Ubuntu Server:\nsudo apt install openssh-server -y sudo systemctl enable --now ssh sudo systemctl status ssh If it says “active (running)”, you’re ready to connect.\nStep 2 – Generate an SSH Key Pair (on WSL) On your Windows WSL Ubuntu:\nssh-keygen -t ed25519 -C \"wsl-to-mac\" Just hit Enter for the default path and skip the passphrase for now. This creates two files under ~/.ssh/ → id_ed25519 (private) and id_ed25519.pub (public).\n##Step 3 – Copy Your Key to the Mac\nStill in WSL:\nssh-copy-id -i ~/.ssh/id_ed25519.pub tony@192.168.1.16 Replace tony with your user. Once it succeeds, you can log in without typing your password:\nssh tony@192.168.1.16 Step 4 – Make It Even Easier with an Alias Edit your SSH config on WSL:\nnano ~/.ssh/config Add:\nHost macserver HostName 192.168.1.16 User tony IdentityFile ~/.ssh/id_ed25519 Now you can just type:\nssh macserver and boom — you’re inside.\nStep 5 – Create a Battery Command (Why Not?) Because it’s still a laptop, I wanted to know its charge without logging in manually. Inside the Mac, edit ~/.bashrc:\nnano ~/.bashrc #Add this line: alias battery=\"upower -i \\$(upower -e | grep BAT) | grep -E 'state|to full|percentage'\" #Save and reload: source ~/.bashrc #Now just type: battery #and you’ll get something like: state: discharging percentage: 84% time to empty: 2.4 hours #Yes — even headless machines can tell you how tired they are. 🔋 Step 6 – Remote Shutdown or Reboot When I’m done for the day:\nsudo shutdown now That’s it. No screen, no keyboard — just commands from my Windows terminal.\nWhat’s Next The foundation is ready:\nThe foundation is ready:\nUbuntu Server Wi-Fi + Static IP SSH Access In Part 4, I’ll connect Docker and Terraform so I can deploy containers on the Mac straight from WSL — as if it were a cloud VM. That’s where this project really turns into a DevOps playground.\n✦ Tony CloudPilot 365 | Because the cloud starts at home.\n",
+  "wordCount" : "415",
+  "inLanguage": "en",
+  "datePublished": "2025-10-09T00:00:00Z",
+  "dateModified": "2025-10-09T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://antonyflores88.github.io/my-lab-blog/posts/mac-server02/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Tony Cloud Journey",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://antonyflores88.github.io/my-lab-blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://antonyflores88.github.io/my-lab-blog/" accesskey="h" title="Tony Cloud Journey (Alt + H)">Tony Cloud Journey</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://antonyflores88.github.io/my-lab-blog/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://antonyflores88.github.io/my-lab-blog/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://antonyflores88.github.io/my-lab-blog/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command &amp; Remote Control
+    </h1>
+    <div class="post-description">
+      Making my Ubuntu Server Mac completely headless — passwordless SSH, remote commands, and a custom battery check that works like magic.
+    </div>
+    <div class="post-meta"><span title='2025-10-09 00:00:00 +0000 UTC'>October 9, 2025</span>&nbsp;·&nbsp;<span>2 min</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="-from-old-mac-to-devops-lab--part-3-ssh-access-battery-command--remote-control">🖧 From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command &amp; Remote Control<a hidden class="anchor" aria-hidden="true" href="#-from-old-mac-to-devops-lab--part-3-ssh-access-battery-command--remote-control">#</a></h1>
+<p>By now the Mac is running Ubuntu Server, sitting on Wi-Fi with a static IP.<br>
+Time to take it to the next level — full <strong>remote access</strong> from my Windows machine using WSL (Ubuntu on Windows).</p>
+<p>Once I finished this part, I could log in, run updates, check the battery, even shut it down — all from my Windows terminal.<br>
+No more touching the Mac.</p>
+<hr>
+<h2 id="-step-1--install-ssh-server-on-the-mac">🔹 Step 1 – Install SSH Server on the Mac<a hidden class="anchor" aria-hidden="true" href="#-step-1--install-ssh-server-on-the-mac">#</a></h2>
+<p>On the Ubuntu Server:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install openssh-server -y
+</span></span><span style="display:flex;"><span>sudo systemctl enable --now ssh
+</span></span><span style="display:flex;"><span>sudo systemctl status ssh
+</span></span></code></pre></div><p>If it says “active (running)”, you’re ready to connect.</p>
+<hr>
+<h2 id="step-2--generate-an-ssh-key-pair-on-wsl">Step 2 – Generate an SSH Key Pair (on WSL)<a hidden class="anchor" aria-hidden="true" href="#step-2--generate-an-ssh-key-pair-on-wsl">#</a></h2>
+<p>On your Windows WSL Ubuntu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-keygen -t ed25519 -C <span style="color:#e6db74">&#34;wsl-to-mac&#34;</span>
+</span></span></code></pre></div><p>Just hit Enter for the default path and skip the passphrase for now.
+This creates two files under ~/.ssh/ → id_ed25519 (private) and id_ed25519.pub (public).</p>
+<hr>
+<p>##Step 3 – Copy Your Key to the Mac</p>
+<p>Still in WSL:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-copy-id -i ~/.ssh/id_ed25519.pub tony@192.168.1.16
+</span></span></code></pre></div><p>Replace tony with your user.
+Once it succeeds, you can log in without typing your password:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh tony@192.168.1.16
+</span></span></code></pre></div><hr>
+<h2 id="step-4--make-it-even-easier-with-an-alias">Step 4 – Make It Even Easier with an Alias<a hidden class="anchor" aria-hidden="true" href="#step-4--make-it-even-easier-with-an-alias">#</a></h2>
+<p>Edit your SSH config on WSL:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano ~/.ssh/config
+</span></span></code></pre></div><p>Add:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Host macserver
+</span></span><span style="display:flex;"><span>    HostName 192.168.1.16
+</span></span><span style="display:flex;"><span>    User tony
+</span></span><span style="display:flex;"><span>    IdentityFile ~/.ssh/id_ed25519
+</span></span></code></pre></div><p>Now you can just type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh macserver
+</span></span></code></pre></div><p>and boom — you’re inside.</p>
+<hr>
+<h2 id="step-5--create-a-battery-command-why-not">Step 5 – Create a Battery Command (Why Not?)<a hidden class="anchor" aria-hidden="true" href="#step-5--create-a-battery-command-why-not">#</a></h2>
+<p>Because it’s still a laptop, I wanted to know its charge without logging in manually.
+Inside the Mac, edit ~/.bashrc:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano ~/.bashrc
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Add this line:</span>
+</span></span><span style="display:flex;"><span>alias battery<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;upower -i \$(upower -e | grep BAT) | grep -E &#39;state|to full|percentage&#39;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Save and reload:</span>
+</span></span><span style="display:flex;"><span>source ~/.bashrc
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Now just type:</span>
+</span></span><span style="display:flex;"><span>battery
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#and you’ll get something like:</span>
+</span></span><span style="display:flex;"><span> state:               discharging
+</span></span><span style="display:flex;"><span>  percentage:          84%
+</span></span><span style="display:flex;"><span>  time to empty:       2.4 hours
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#Yes — even headless machines can tell you how tired they are. 🔋</span>
+</span></span></code></pre></div><hr>
+<h2 id="step-6--remote-shutdown-or-reboot">Step 6 – Remote Shutdown or Reboot<a hidden class="anchor" aria-hidden="true" href="#step-6--remote-shutdown-or-reboot">#</a></h2>
+<p>When I’m done for the day:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo shutdown now
+</span></span></code></pre></div><p>That’s it. No screen, no keyboard — just commands from my Windows terminal.</p>
+<hr>
+<h2 id="whats-next">What’s Next<a hidden class="anchor" aria-hidden="true" href="#whats-next">#</a></h2>
+<p>The foundation is ready:</p>
+<p>The foundation is ready:</p>
+<ul>
+<li><strong>Ubuntu Server</strong></li>
+<li><strong>Wi-Fi + Static IP</strong></li>
+<li><strong>SSH Access</strong></li>
+</ul>
+<p>In Part 4, I’ll connect Docker and Terraform so I can deploy containers on the Mac straight from WSL — as if it were a cloud VM.
+That’s where this project really turns into a DevOps playground.</p>
+<p>✦ Tony
+CloudPilot 365 | Because the cloud starts at home.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/ubuntu-server/">Ubuntu Server</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/ssh/">SSH</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/automation/">Automation</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/devops-lab/">DevOps Lab</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/remote-access/">Remote Access</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://antonyflores88.github.io/my-lab-blog/">Tony Cloud Journey</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

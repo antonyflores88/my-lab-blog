@@ -25,28 +25,44 @@ This site is where I document my learning path, experiments, and lessons from bo
 &lt;p&gt;Here I share everything I learn — the wins, the failures, and the “aha” moments.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>From Old Mac to DevOps Lab – Part 4: Docker &#43; Terraform = My Own Mini Cloud</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/posts/mac-server-03/</link>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/posts/mac-server-03/</guid>
+      <description>Running Docker containers remotely from WSL using Terraform over SSH. The final piece that turns an old MacBook into a real DevOps lab.</description>
+    </item>
+    <item>
+      <title>From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command &amp; Remote Control</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/posts/mac-server02/</link>
+      <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/posts/mac-server02/</guid>
+      <description>Making my Ubuntu Server Mac completely headless — passwordless SSH, remote commands, and a custom battery check that works like magic.</description>
+    </item>
+    <item>
       <title>From Old Mac to DevOps Lab – Part 2: Wi-Fi and Static IP with Netplan</title>
       <link>https://antonyflores88.github.io/my-lab-blog/posts/mac-server01/</link>
-      <pubDate>Sat, 11 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/posts/mac-server01/</guid>
       <description>Setting up Wi-Fi and a permanent IP on my headless Ubuntu Server Mac using Netplan. No GUI, no clicks — just YAML and results.</description>
     </item>
     <item>
       <title>From Old Mac to DevOps Lab – Part 1: Installing Ubuntu Server (Headless Setup)</title>
       <link>https://antonyflores88.github.io/my-lab-blog/posts/mac-server/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/posts/mac-server/</guid>
       <description>Breathing new life into a 2012 MacBook by turning it into a lightweight Ubuntu Server — no GUI, no bloat, just pure performance.</description>
     </item>
     <item>
       <title>Building My Cloud Journey</title>
       <link>https://antonyflores88.github.io/my-lab-blog/posts/my-first-lab/</link>
-      <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 05 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/posts/my-first-lab/</guid>
       <description>&lt;p&gt;Every great journey begins with curiosity and mine starts here.&lt;/p&gt;
 &lt;p&gt;I’m building a local lab environment using &lt;strong&gt;Terraform&lt;/strong&gt;, &lt;strong&gt;Docker&lt;/strong&gt;, and &lt;strong&gt;PowerShell&lt;/strong&gt; to simulate real cloud setups, all this on an old 2012 Mac running a headless Ubuntu server.&lt;br&gt;
 From there, I test deployments on &lt;strong&gt;Azure&lt;/strong&gt;, automate configurations, and learn how modern DevOps pipelines fit together.&lt;/p&gt;
-&lt;p&gt;If you’re exploring the same path, welcome aboard! Let’s learn and break things together.&lt;/p&gt;</description>
+&lt;p&gt;If you’re exploring the same path, welcome aboard! Let’s learn and break things together.&lt;/p&gt;
+&lt;p&gt;✦ Tony
+CloudPilot 365 | Because the cloud starts at home.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

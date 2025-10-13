@@ -6,61 +6,103 @@
     <description>Recent content in Tags on Tony Cloud Journey</description>
     <generator>Hugo -- 0.151.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 11 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://antonyflores88.github.io/my-lab-blog/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DevOps Lab</title>
       <link>https://antonyflores88.github.io/my-lab-blog/tags/devops-lab/</link>
-      <pubDate>Sat, 11 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/tags/devops-lab/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/tags/docker/</link>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/tags/docker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Infrastructure as Code</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/tags/infrastructure-as-code/</link>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/tags/infrastructure-as-code/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Terraform</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/tags/terraform/</link>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/tags/terraform/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ubuntu Server</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/tags/ubuntu-server/</link>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/tags/ubuntu-server/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Automation</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/tags/automation/</link>
+      <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/tags/automation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Remote Access</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/tags/remote-access/</link>
+      <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/tags/remote-access/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SSH</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/tags/ssh/</link>
+      <pubDate>Thu, 09 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/tags/ssh/</guid>
       <description></description>
     </item>
     <item>
       <title>Netplan</title>
       <link>https://antonyflores88.github.io/my-lab-blog/tags/netplan/</link>
-      <pubDate>Sat, 11 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/tags/netplan/</guid>
       <description></description>
     </item>
     <item>
       <title>Static IP</title>
       <link>https://antonyflores88.github.io/my-lab-blog/tags/static-ip/</link>
-      <pubDate>Sat, 11 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/tags/static-ip/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Ubuntu Server</title>
-      <link>https://antonyflores88.github.io/my-lab-blog/tags/ubuntu-server/</link>
-      <pubDate>Sat, 11 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>https://antonyflores88.github.io/my-lab-blog/tags/ubuntu-server/</guid>
       <description></description>
     </item>
     <item>
       <title>WiFi</title>
       <link>https://antonyflores88.github.io/my-lab-blog/tags/wifi/</link>
-      <pubDate>Sat, 11 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/tags/wifi/</guid>
       <description></description>
     </item>
     <item>
       <title>Headless Setup</title>
       <link>https://antonyflores88.github.io/my-lab-blog/tags/headless-setup/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/tags/headless-setup/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
       <link>https://antonyflores88.github.io/my-lab-blog/tags/linux/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/tags/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>MacBook</title>
       <link>https://antonyflores88.github.io/my-lab-blog/tags/macbook/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 07 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/tags/macbook/</guid>
       <description></description>
     </item>
