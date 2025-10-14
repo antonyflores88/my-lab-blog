@@ -76,8 +76,8 @@
   "keywords": [
     "Ubuntu Server", "SSH", "Automation", "DevOps Lab", "Remote Access"
   ],
-  "articleBody": "🖧 From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command \u0026 Remote Control By now the Mac is running Ubuntu Server, sitting on Wi-Fi with a static IP.\nTime to take it to the next level — full remote access from my Windows machine using WSL (Ubuntu on Windows).\nOnce I finished this part, I could log in, run updates, check the battery, even shut it down — all from my Windows terminal.\nNo more touching the Mac.\n🔹 Step 1 – Install SSH Server on the Mac On the Ubuntu Server:\nsudo apt install openssh-server -y sudo systemctl enable --now ssh sudo systemctl status ssh If it says “active (running)”, you’re ready to connect.\nStep 2 – Generate an SSH Key Pair (on WSL) On your Windows WSL Ubuntu:\nssh-keygen -t ed25519 -C \"wsl-to-mac\" Just hit Enter for the default path and skip the passphrase for now. This creates two files under ~/.ssh/ → id_ed25519 (private) and id_ed25519.pub (public).\n##Step 3 – Copy Your Key to the Mac\nStill in WSL:\nssh-copy-id -i ~/.ssh/id_ed25519.pub tony@192.168.1.16 Replace tony with your user. Once it succeeds, you can log in without typing your password:\nssh tony@192.168.1.16 Step 4 – Make It Even Easier with an Alias Edit your SSH config on WSL:\nnano ~/.ssh/config Add:\nHost macserver HostName 192.168.1.16 User tony IdentityFile ~/.ssh/id_ed25519 Now you can just type:\nssh macserver and boom — you’re inside.\nStep 5 – Create a Battery Command (Why Not?) Because it’s still a laptop, I wanted to know its charge without logging in manually. Inside the Mac, edit ~/.bashrc:\nnano ~/.bashrc #Add this line: alias battery=\"upower -i \\$(upower -e | grep BAT) | grep -E 'state|to full|percentage'\" #Save and reload: source ~/.bashrc #Now just type: battery #and you’ll get something like: state: discharging percentage: 84% time to empty: 2.4 hours #Yes — even headless machines can tell you how tired they are. 🔋 Step 6 – Remote Shutdown or Reboot When I’m done for the day:\nsudo shutdown now That’s it. No screen, no keyboard — just commands from my Windows terminal.\nWhat’s Next The foundation is ready:\nThe foundation is ready:\nUbuntu Server Wi-Fi + Static IP SSH Access In Part 4, I’ll connect Docker and Terraform so I can deploy containers on the Mac straight from WSL — as if it were a cloud VM. That’s where this project really turns into a DevOps playground.\n✦ Tony CloudPilot 365 | Because the cloud starts at home.\n",
-  "wordCount" : "415",
+  "articleBody": "From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command \u0026 Remote Control By now the Mac is running Ubuntu Server, sitting on Wi-Fi with a static IP.\nTime to take it to the next level — full remote access from my Windows machine using WSL (Ubuntu on Windows).\nOnce I finished this part, I could log in, run updates, check the battery, even shut it down — all from my Windows terminal.\nNo more touching the Mac.\nStep 1 – Install SSH Server on the Mac On the Ubuntu Server:\nsudo apt install openssh-server -y sudo systemctl enable --now ssh sudo systemctl status ssh If it says “active (running)”, you’re ready to connect.\nStep 2 – Generate an SSH Key Pair (on WSL) On your Windows WSL Ubuntu:\nssh-keygen -t ed25519 -C \"wsl-to-mac\" Just hit Enter for the default path and skip the passphrase for now. This creates two files under ~/.ssh/ → id_ed25519 (private) and id_ed25519.pub (public).\nStep 3 – Copy Your Key to the Mac Still in WSL:\nssh-copy-id -i ~/.ssh/id_ed25519.pub tony@192.168.1.16 Replace tony@192.168.1.16 with your actual server. Once it succeeds, you can log in without typing your password:\nssh tony@192.168.1.16 Step 4 – Make It Even Easier with an Alias Edit your SSH config on WSL:\nnano ~/.ssh/config Add:\nHost macserver HostName 192.168.1.16 User tony IdentityFile ~/.ssh/id_ed25519 Now you can just type:\nssh macserver and boom — you’re inside.\nStep 5 – Create a Battery Command (Why Not?) Because it’s still a laptop, I wanted to know its charge without logging in manually. Inside the Mac, edit ~/.bashrc:\nnano ~/.bashrc #Add this line: alias battery=\"upower -i \\$(upower -e | grep BAT) | grep -E 'state|to full|percentage'\" #Save and reload: source ~/.bashrc #Now just type: battery #and you’ll get something like: state: discharging percentage: 84% time to empty: 2.4 hours #Yes — even headless machines can tell you how tired they are. 🔋 Step 6 – Remote Shutdown or Reboot When I’m done for the day:\nsudo shutdown now That’s it. No screen, no keyboard — just commands from my Windows terminal.\nWhat’s Next The foundation is ready:\nUbuntu Server Wi-Fi + Static IP SSH Access In Part 4, I’ll connect Docker and Terraform so I can deploy containers on the Mac straight from WSL — as if it were a cloud VM. That’s where this project really turns into a DevOps playground.\n✦ Tony CloudPilot 365 | Because the cloud starts at home.\n",
+  "wordCount" : "410",
   "inLanguage": "en",
   "datePublished": "2025-10-09T00:00:00Z",
   "dateModified": "2025-10-09T00:00:00Z",
@@ -166,13 +166,13 @@
 
 </div>
   </header> 
-  <div class="post-content"><h1 id="-from-old-mac-to-devops-lab--part-3-ssh-access-battery-command--remote-control">🖧 From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command &amp; Remote Control<a hidden class="anchor" aria-hidden="true" href="#-from-old-mac-to-devops-lab--part-3-ssh-access-battery-command--remote-control">#</a></h1>
+  <div class="post-content"><h1 id="from-old-mac-to-devops-lab--part-3-ssh-access-battery-command--remote-control">From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command &amp; Remote Control<a hidden class="anchor" aria-hidden="true" href="#from-old-mac-to-devops-lab--part-3-ssh-access-battery-command--remote-control">#</a></h1>
 <p>By now the Mac is running Ubuntu Server, sitting on Wi-Fi with a static IP.<br>
 Time to take it to the next level — full <strong>remote access</strong> from my Windows machine using WSL (Ubuntu on Windows).</p>
 <p>Once I finished this part, I could log in, run updates, check the battery, even shut it down — all from my Windows terminal.<br>
 No more touching the Mac.</p>
 <hr>
-<h2 id="-step-1--install-ssh-server-on-the-mac">🔹 Step 1 – Install SSH Server on the Mac<a hidden class="anchor" aria-hidden="true" href="#-step-1--install-ssh-server-on-the-mac">#</a></h2>
+<h2 id="step-1--install-ssh-server-on-the-mac">Step 1 – Install SSH Server on the Mac<a hidden class="anchor" aria-hidden="true" href="#step-1--install-ssh-server-on-the-mac">#</a></h2>
 <p>On the Ubuntu Server:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install openssh-server -y
 </span></span><span style="display:flex;"><span>sudo systemctl enable --now ssh
@@ -185,10 +185,10 @@ No more touching the Mac.</p>
 </span></span></code></pre></div><p>Just hit Enter for the default path and skip the passphrase for now.
 This creates two files under ~/.ssh/ → id_ed25519 (private) and id_ed25519.pub (public).</p>
 <hr>
-<p>##Step 3 – Copy Your Key to the Mac</p>
+<h2 id="step-3--copy-your-key-to-the-mac">Step 3 – Copy Your Key to the Mac<a hidden class="anchor" aria-hidden="true" href="#step-3--copy-your-key-to-the-mac">#</a></h2>
 <p>Still in WSL:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-copy-id -i ~/.ssh/id_ed25519.pub tony@192.168.1.16
-</span></span></code></pre></div><p>Replace tony with your user.
+</span></span></code></pre></div><p>Replace <a href="mailto:tony@192.168.1.16">tony@192.168.1.16</a> with your actual server.
 Once it succeeds, you can log in without typing your password:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh tony@192.168.1.16
 </span></span></code></pre></div><hr>
@@ -226,7 +226,6 @@ Inside the Mac, edit ~/.bashrc:</p>
 </span></span></code></pre></div><p>That’s it. No screen, no keyboard — just commands from my Windows terminal.</p>
 <hr>
 <h2 id="whats-next">What’s Next<a hidden class="anchor" aria-hidden="true" href="#whats-next">#</a></h2>
-<p>The foundation is ready:</p>
 <p>The foundation is ready:</p>
 <ul>
 <li><strong>Ubuntu Server</strong></li>
