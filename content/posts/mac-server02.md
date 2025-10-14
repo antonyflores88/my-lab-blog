@@ -5,7 +5,7 @@ date: 2025-10-09
 tags: [Ubuntu Server, SSH, Automation, DevOps Lab, Remote Access]
 ---
 
-# 🖧 From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command & Remote Control
+# From Old Mac to DevOps Lab – Part 3: SSH Access, Battery Command & Remote Control
 
 By now the Mac is running Ubuntu Server, sitting on Wi-Fi with a static IP.  
 Time to take it to the next level — full **remote access** from my Windows machine using WSL (Ubuntu on Windows).  
@@ -15,7 +15,7 @@ No more touching the Mac.
 
 ---
 
-## 🔹 Step 1 – Install SSH Server on the Mac
+## Step 1 – Install SSH Server on the Mac
 
 On the Ubuntu Server:
 ```bash
@@ -38,13 +38,13 @@ This creates two files under ~/.ssh/ → id_ed25519 (private) and id_ed25519.pub
 
 ---
 
-##Step 3 – Copy Your Key to the Mac
+## Step 3 – Copy Your Key to the Mac
 
 Still in WSL:
 ```bash
 ssh-copy-id -i ~/.ssh/id_ed25519.pub tony@192.168.1.16
 ```
-Replace tony with your user.
+Replace tony@192.168.1.16 with your actual server.
 Once it succeeds, you can log in without typing your password:
 ```bash
 ssh tony@192.168.1.16
@@ -104,8 +104,6 @@ That’s it. No screen, no keyboard — just commands from my Windows terminal.
 ---
 
 ## What’s Next
-
-The foundation is ready:
 
 The foundation is ready:  
 - **Ubuntu Server**
