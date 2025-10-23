@@ -4,7 +4,7 @@ date: 2025-10-21
 author: "Tony"
 tags: ["Terraform", "Docker", "Flask", "NGINX", "DevOps Lab"]
 cover:
-    image: "images/terra_docker_lab02.png"
+    image: "images/terradockerlab01.png"
     alt: "Terraform and Docker multi-environment setup"
     caption: "Simulating multi-environment deployments locally"
 ---
