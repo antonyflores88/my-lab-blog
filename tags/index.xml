@@ -6,20 +6,41 @@
     <description>Recent content in Tags on Tony Cloud Journey</description>
     <generator>Hugo -- 0.151.0</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://antonyflores88.github.io/my-lab-blog/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DevOps Lab</title>
       <link>https://antonyflores88.github.io/my-lab-blog/tags/devops-lab/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 21 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/tags/devops-lab/</guid>
       <description></description>
     </item>
     <item>
       <title>Docker</title>
       <link>https://antonyflores88.github.io/my-lab-blog/tags/docker/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 21 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/tags/docker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Flask</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/tags/flask/</link>
+      <pubDate>Tue, 21 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/tags/flask/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>NGINX</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/tags/nginx/</link>
+      <pubDate>Tue, 21 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/tags/nginx/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Terraform</title>
+      <link>https://antonyflores88.github.io/my-lab-blog/tags/terraform/</link>
+      <pubDate>Tue, 21 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>https://antonyflores88.github.io/my-lab-blog/tags/terraform/</guid>
       <description></description>
     </item>
     <item>
@@ -27,13 +48,6 @@
       <link>https://antonyflores88.github.io/my-lab-blog/tags/infrastructure-as-code/</link>
       <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://antonyflores88.github.io/my-lab-blog/tags/infrastructure-as-code/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Terraform</title>
-      <link>https://antonyflores88.github.io/my-lab-blog/tags/terraform/</link>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>https://antonyflores88.github.io/my-lab-blog/tags/terraform/</guid>
       <description></description>
     </item>
     <item>

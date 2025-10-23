@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Terra &#43; Docker – Multi-Environment Setup Part 01 | Tony Cloud Journey</title>
+<meta name="keywords" content="Terraform, Docker, Flask, NGINX, DevOps Lab">
+<meta name="description" content="🌩️ Building My Terraform &#43; Docker Cloud Lab (Part 1)
+Lately I’ve been building a personal “micro-cloud” lab using Terraform and Docker, with one goal — simulate a real multi-environment setup (prod, staging, dev) just like in real-world projects. This first part covers how I built the base infrastructure, set up a reverse proxy, and improved the Flask apps.
+
+⚙️ Phase 1 – Building the Base Infrastructure
+Goal: Create a simulated multi-environment setup using Terraform &#43; Docker.">
+<meta name="author" content="Tony">
+<link rel="canonical" href="https://antonyflores88.github.io/my-lab-blog/posts/mac-server04/">
+<link crossorigin="anonymous" href="/my-lab-blog/assets/css/stylesheet.css" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://antonyflores88.github.io/my-lab-blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://antonyflores88.github.io/my-lab-blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://antonyflores88.github.io/my-lab-blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://antonyflores88.github.io/my-lab-blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://antonyflores88.github.io/my-lab-blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://antonyflores88.github.io/my-lab-blog/posts/mac-server04/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://antonyflores88.github.io/my-lab-blog/posts/mac-server04/">
+  <meta property="og:site_name" content="Tony Cloud Journey">
+  <meta property="og:title" content="Terra &#43; Docker – Multi-Environment Setup Part 01">
+  <meta property="og:description" content="🌩️ Building My Terraform &#43; Docker Cloud Lab (Part 1) Lately I’ve been building a personal “micro-cloud” lab using Terraform and Docker, with one goal — simulate a real multi-environment setup (prod, staging, dev) just like in real-world projects. This first part covers how I built the base infrastructure, set up a reverse proxy, and improved the Flask apps.
+⚙️ Phase 1 – Building the Base Infrastructure Goal: Create a simulated multi-environment setup using Terraform &#43; Docker.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-10-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-10-21T00:00:00+00:00">
+    <meta property="article:tag" content="Terraform">
+    <meta property="article:tag" content="Docker">
+    <meta property="article:tag" content="Flask">
+    <meta property="article:tag" content="NGINX">
+    <meta property="article:tag" content="DevOps Lab">
+    <meta property="og:image" content="https://antonyflores88.github.io/images/posts/terraform-docker-lab-1-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://antonyflores88.github.io/images/posts/terraform-docker-lab-1-cover.png">
+<meta name="twitter:title" content="Terra &#43; Docker – Multi-Environment Setup Part 01">
+<meta name="twitter:description" content="🌩️ Building My Terraform &#43; Docker Cloud Lab (Part 1)
+Lately I’ve been building a personal “micro-cloud” lab using Terraform and Docker, with one goal — simulate a real multi-environment setup (prod, staging, dev) just like in real-world projects. This first part covers how I built the base infrastructure, set up a reverse proxy, and improved the Flask apps.
+
+⚙️ Phase 1 – Building the Base Infrastructure
+Goal: Create a simulated multi-environment setup using Terraform &#43; Docker.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://antonyflores88.github.io/my-lab-blog/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Terra + Docker – Multi-Environment Setup Part 01",
+      "item": "https://antonyflores88.github.io/my-lab-blog/posts/mac-server04/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Terra + Docker – Multi-Environment Setup Part 01",
+  "name": "Terra \u002b Docker – Multi-Environment Setup Part 01",
+  "description": "🌩️ Building My Terraform + Docker Cloud Lab (Part 1) Lately I’ve been building a personal “micro-cloud” lab using Terraform and Docker, with one goal — simulate a real multi-environment setup (prod, staging, dev) just like in real-world projects. This first part covers how I built the base infrastructure, set up a reverse proxy, and improved the Flask apps.\n⚙️ Phase 1 – Building the Base Infrastructure Goal: Create a simulated multi-environment setup using Terraform + Docker.\n",
+  "keywords": [
+    "Terraform", "Docker", "Flask", "NGINX", "DevOps Lab"
+  ],
+  "articleBody": "🌩️ Building My Terraform + Docker Cloud Lab (Part 1) Lately I’ve been building a personal “micro-cloud” lab using Terraform and Docker, with one goal — simulate a real multi-environment setup (prod, staging, dev) just like in real-world projects. This first part covers how I built the base infrastructure, set up a reverse proxy, and improved the Flask apps.\n⚙️ Phase 1 – Building the Base Infrastructure Goal: Create a simulated multi-environment setup using Terraform + Docker.\nI defined three virtual networks — vnet-prod, vnet-staging, and vnet-dev — each hosting a simple Flask app container.\nAll used the same image, listening on port 5000 internally, but mapped to different external ports:\n5001 → prod 5002 → staging 5003 → dev Terraform created everything automatically:\nresource \"docker_network\" \"vnet_prod\" { ... } resource \"docker_network\" \"vnet_staging\" { ... } resource \"docker_network\" \"vnet_dev\" { ... } After deployment, each app was reachable directly at:\nhttp://192.168.1.16:5001 http://192.168.1.16:5002 http://192.168.1.16:5003\nPhase 2 – Adding the NGINX Reverse Proxy Goal: Route all traffic through a single gateway on port 8080.\nThe NGINX container handled routing between environments:\nhttp { server { listen 80; location /prod/ { proxy_pass http://app-prod:5000/; } location /staging/ { proxy_pass http://app-staging:5000/; } location /dev/ { proxy_pass http://app-dev:5000/; } } } Important fix: Trailing slashes in location and proxy_pass are critical. Without them, Flask routes break because the prefixes aren’t stripped.\nThe result should be you reaching the applications using the port 8080 of the Nginx server, using the /prod, /staging and /dev accordinly.\n🐍 Phase 3 – Flask Enhancements I added two simple routes:\n/check → health info /env → current environment Example output: {“env”: “prod”, “db_host”: null, “redis_host”: null}\nBugs I hit along the way:\nForgot to add f before triple quotes → Flask printed {ENVIRONMENT} literally instead of substituting it. ✅ Fix:\nhtml = f\"\"\"Welcome to Tony Cloud Lab Server ({ENVIRONMENT} Environment)\"\"\" Got NameError: jsonify not defined — turns out Docker was caching an old version of app.py. This is where I found troubleshooting containers with Terraform is not very practical, because sometimes Terraform will not realize small changes on the Docker image and will not applied them, as a newby on Terraform on those fixes I have been using Terraform destroy and plan + apply again, this has save me more time that traying to “taint” the image, on top of that, if you try to do it, because the image is being use by other container, docker will not allow you to modified it, so that would be a downsize of using the same image for all.\n🧩 Phase 4 – Adding Backends (Postgres \u0026 Redis) Goal: Add backend services per environment.\nProd → PostgreSQL Staging → Redis Example Terraform snippets:\nresource \"docker_container\" \"postgres\" { name = \"postgres-prod\" image = \"postgres:16\" env = [ \"POSTGRES_USER=tony\", \"POSTGRES_PASSWORD=superpass\", \"POSTGRES_DB=tonylab\" ] networks_advanced { name = docker_network.vnet_prod.name } } resource \"docker_container\" \"redis\" { name = \"redis-staging\" image = \"redis:7\" networks_advanced { name = docker_network.vnet_staging.name } } The painful part: Postgres fought me at every step, not kidding. Authentication errors, socket issues, and password mismatches everywhere. It turns out Postgres only applies environment variables during the first initialization. Even if you change the password later, it won’t take effect unless you remove the data volume.\nI tried everything: editing pg_hba.conf, forcing TCP connections, DSN strings, listen_addresses=’*’, but Docker networking kept breaking external authentication.\nLesson: Postgres is powerful but not friendly for quick multi-container dev lab setups. Because of that, I decided to go full Redis for testing purposes, to simplify everything with one Redis instance to rule them all.\nHow I did it: I modified the Terraform main.tf file to remove Postgres and repoint the prod container to Redis, removed the other variables, and used only one environment variable: “REDIS_HOST=redis-shared”.\n🧠 Phase 6 – Flask Final Form Here’s the final /check route that validates Redis connectivity:\nimport redis from flask import Flask, jsonify import os app = Flask(__name__) ENVIRONMENT = os.getenv('ENVIRONMENT', 'dev') REDIS_HOST = os.getenv('REDIS_HOST', 'localhost') @app.route('/check') def check_connections(): status = {\"env\": ENVIRONMENT} try: r = redis.Redis(host=REDIS_HOST, port=6379, socket_connect_timeout=3) pong = r.ping() status[\"redis_host\"] = REDIS_HOST status[\"redis_status\"] = \"ok\" if pong else \"no-pong\" except Exception as e: status[\"redis_status\"] = f\"error: {e.__class__.__name__}\" return jsonify(status), 200 Note: on the requirements.txt I just leave it with this 2 lines: flask==3.0.3 redis==5.0.8\nFinal result:\nhttp://192.168.1.16:8080/prod/check → {“env”:“prod”,“redis_host”:“redis-shared”,“redis_status”:“ok”}\nhttp://192.168.1.16:8080/staging/check → {“env”:“staging”,“redis_host”:“redis-shared”,“redis_status”:“ok”}\nEverything connected cleanly — zero auth issues, instant response times. Redis wins this one 😄.\nCategory Pain Fix / Lesson Flask Cached imports, missing f Always rebuild the image after code changes Terraform State cache terraform taint saves the day NGINX Route prefix issues Trailing slashes fix everything Postgres Auth nightmares Env vars only apply on first init, destroy volume to reset Redis Lightweight and instant One ping = working setup Overall Debugging patience The pain builds understanding, not just success ✅ Final Verdict This project turned into a mini production-style cloud simulation:\nReverse proxy gateway (NGINX) Multiple isolated environments (prod/staging/dev) Shared backend service Infrastructure as Code (Terraform) Self-contained health endpoints Not just a lab, this is a cloud playground for testing real-world concepts in isolation.\n",
+  "wordCount" : "845",
+  "inLanguage": "en",
+  "image":"https://antonyflores88.github.io/images/posts/terraform-docker-lab-1-cover.png","datePublished": "2025-10-21T00:00:00Z",
+  "dateModified": "2025-10-21T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Tony"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://antonyflores88.github.io/my-lab-blog/posts/mac-server04/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Tony Cloud Journey",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://antonyflores88.github.io/my-lab-blog/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://antonyflores88.github.io/my-lab-blog/" accesskey="h" title="Tony Cloud Journey (Alt + H)">Tony Cloud Journey</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://antonyflores88.github.io/my-lab-blog/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://antonyflores88.github.io/my-lab-blog/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://antonyflores88.github.io/my-lab-blog/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Terra &#43; Docker – Multi-Environment Setup Part 01
+    </h1>
+    <div class="post-meta"><span title='2025-10-21 00:00:00 +0000 UTC'>October 21, 2025</span>&nbsp;·&nbsp;<span>4 min</span>&nbsp;·&nbsp;<span>Tony</span>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://antonyflores88.github.io/images/posts/terraform-docker-lab-1-cover.png" alt="Terraform and Docker multi-environment setup">
+        <figcaption>Simulating multi-environment deployments locally</figcaption>
+</figure>
+  <div class="post-content"><h2 id="-building-my-terraform--docker-cloud-lab-part-1">🌩️ Building My Terraform + Docker Cloud Lab (Part 1)<a hidden class="anchor" aria-hidden="true" href="#-building-my-terraform--docker-cloud-lab-part-1">#</a></h2>
+<p>Lately I’ve been building a personal “micro-cloud” lab using <strong>Terraform and Docker</strong>, with one goal — simulate a real multi-environment setup (prod, staging, dev) just like in real-world projects. This first part covers how I built the base infrastructure, set up a reverse proxy, and improved the Flask apps.</p>
+<hr>
+<h3 id="-phase-1--building-the-base-infrastructure">⚙️ Phase 1 – Building the Base Infrastructure<a hidden class="anchor" aria-hidden="true" href="#-phase-1--building-the-base-infrastructure">#</a></h3>
+<p><strong>Goal:</strong> Create a simulated multi-environment setup using Terraform + Docker.</p>
+<p>I defined three virtual networks — <code>vnet-prod</code>, <code>vnet-staging</code>, and <code>vnet-dev</code> — each hosting a simple Flask app container.<br>
+All used the same image, listening on port <code>5000</code> internally, but mapped to different external ports:</p>
+<ul>
+<li>5001 → prod</li>
+<li>5002 → staging</li>
+<li>5003 → dev</li>
+</ul>
+<p>Terraform created everything automatically:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;docker_network&#34; &#34;vnet_prod&#34;</span> { ... }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;docker_network&#34; &#34;vnet_staging&#34;</span> { ... }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;docker_network&#34; &#34;vnet_dev&#34;</span> { ... }
+</span></span></code></pre></div><p>After deployment, each app was reachable directly at:</p>
+<p>http://192.168.1.16:5001
+http://192.168.1.16:5002
+http://192.168.1.16:5003</p>
+<h3 id="phase-2--adding-the-nginx-reverse-proxy">Phase 2 – Adding the NGINX Reverse Proxy<a hidden class="anchor" aria-hidden="true" href="#phase-2--adding-the-nginx-reverse-proxy">#</a></h3>
+<p>Goal: Route all traffic through a single gateway on port 8080.</p>
+<p>The NGINX container handled routing between environments:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>http <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    server <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        listen 80;
+</span></span><span style="display:flex;"><span>        location /prod/ <span style="color:#f92672">{</span> proxy_pass http://app-prod:5000/; <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        location /staging/ <span style="color:#f92672">{</span> proxy_pass http://app-staging:5000/; <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        location /dev/ <span style="color:#f92672">{</span> proxy_pass http://app-dev:5000/; <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Important fix: Trailing slashes in location and proxy_pass are critical.
+Without them, Flask routes break because the prefixes aren’t stripped.</p>
+<p>The result should be you reaching the applications using the port 8080 of the Nginx server, using the /prod, /staging and /dev accordinly.</p>
+<h3 id="-phase-3--flask-enhancements">🐍 Phase 3 – Flask Enhancements<a hidden class="anchor" aria-hidden="true" href="#-phase-3--flask-enhancements">#</a></h3>
+<p>I added two simple routes:</p>
+<ul>
+<li><strong>/check → health info</strong></li>
+<li><strong>/env → current environment</strong></li>
+</ul>
+<p>Example output: {&ldquo;env&rdquo;: &ldquo;prod&rdquo;, &ldquo;db_host&rdquo;: null, &ldquo;redis_host&rdquo;: null}</p>
+<p>Bugs I hit along the way:</p>
+<p>Forgot to add f before triple quotes → Flask printed {ENVIRONMENT} literally instead of substituting it.
+✅ Fix:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>html <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;&#34;&#34;Welcome to Tony Cloud Lab Server ({ENVIRONMENT} Environment)&#34;&#34;&#34;</span>
+</span></span></code></pre></div><p>Got NameError: jsonify not defined — turns out Docker was caching an old version of app.py. This is where I found troubleshooting containers with Terraform is not very practical, because sometimes Terraform will not realize small changes on the Docker image and will not applied them, as a newby on Terraform on those fixes I have been using Terraform destroy and plan + apply again, this has save me more time that traying to &ldquo;taint&rdquo; the image, on top of that, if you try to do it, because the image is being use by other container, docker will not allow you to modified it, so that would be a downsize of using the same image for all.</p>
+<h2 id="-phase-4--adding-backends-postgres--redis">🧩 Phase 4 – Adding Backends (Postgres &amp; Redis)<a hidden class="anchor" aria-hidden="true" href="#-phase-4--adding-backends-postgres--redis">#</a></h2>
+<p>Goal: Add backend services per environment.</p>
+<ul>
+<li><strong>Prod → PostgreSQL</strong></li>
+<li><strong>Staging → Redis</strong></li>
+</ul>
+<p>Example Terraform snippets:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>resource <span style="color:#e6db74">&#34;docker_container&#34;</span> <span style="color:#e6db74">&#34;postgres&#34;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  name  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;postgres-prod&#34;</span>
+</span></span><span style="display:flex;"><span>  image <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;postgres:16&#34;</span>
+</span></span><span style="display:flex;"><span>  env <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;POSTGRES_USER=tony&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;POSTGRES_PASSWORD=superpass&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;POSTGRES_DB=tonylab&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>  networks_advanced <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    name <span style="color:#f92672">=</span> docker_network.vnet_prod.name
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>resource <span style="color:#e6db74">&#34;docker_container&#34;</span> <span style="color:#e6db74">&#34;redis&#34;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  name  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;redis-staging&#34;</span>
+</span></span><span style="display:flex;"><span>  image <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;redis:7&#34;</span>
+</span></span><span style="display:flex;"><span>  networks_advanced <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    name <span style="color:#f92672">=</span> docker_network.vnet_staging.name
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>The painful part: Postgres fought me at every step, not kidding. Authentication errors, socket issues, and password mismatches everywhere. It turns out Postgres only applies environment variables during the first initialization. Even if you change the password later, it won’t take effect unless you remove the data volume.</p>
+<p>I tried everything: editing pg_hba.conf, forcing TCP connections, DSN strings, listen_addresses=&rsquo;*&rsquo;, but Docker networking kept breaking external authentication.</p>
+<p>Lesson: Postgres is powerful but not friendly for quick multi-container dev lab setups. Because of that, I decided to go full Redis for testing purposes, to simplify everything with one Redis instance to rule them all.</p>
+<p>How I did it: I modified the Terraform main.tf file to remove Postgres and repoint the prod container to Redis, removed the other variables, and used only one environment variable: &ldquo;REDIS_HOST=redis-shared&rdquo;.</p>
+<h3 id="-phase-6--flask-final-form">🧠 Phase 6 – Flask Final Form<a hidden class="anchor" aria-hidden="true" href="#-phase-6--flask-final-form">#</a></h3>
+<p>Here’s the final /check route that validates Redis connectivity:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>import redis
+</span></span><span style="display:flex;"><span>from flask import Flask, jsonify
+</span></span><span style="display:flex;"><span>import os
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>app <span style="color:#f92672">=</span> Flask<span style="color:#f92672">(</span>__name__<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>ENVIRONMENT <span style="color:#f92672">=</span> os.getenv<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;ENVIRONMENT&#39;</span>, <span style="color:#e6db74">&#39;dev&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>REDIS_HOST <span style="color:#f92672">=</span> os.getenv<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;REDIS_HOST&#39;</span>, <span style="color:#e6db74">&#39;localhost&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>@app.route<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;/check&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>def check_connections<span style="color:#f92672">()</span>:
+</span></span><span style="display:flex;"><span>    status <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;env&#34;</span>: ENVIRONMENT<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    try:
+</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">=</span> redis.Redis<span style="color:#f92672">(</span>host<span style="color:#f92672">=</span>REDIS_HOST, port<span style="color:#f92672">=</span>6379, socket_connect_timeout<span style="color:#f92672">=</span>3<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        pong <span style="color:#f92672">=</span> r.ping<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        status<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;redis_host&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> REDIS_HOST
+</span></span><span style="display:flex;"><span>        status<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;redis_status&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ok&#34;</span> <span style="color:#66d9ef">if</span> pong <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;no-pong&#34;</span>
+</span></span><span style="display:flex;"><span>    except Exception as e:
+</span></span><span style="display:flex;"><span>        status<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;redis_status&#34;</span><span style="color:#f92672">]</span> <span style="color:#f92672">=</span> f<span style="color:#e6db74">&#34;error: {e.__class__.__name__}&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> jsonify<span style="color:#f92672">(</span>status<span style="color:#f92672">)</span>, <span style="color:#ae81ff">200</span>
+</span></span></code></pre></div><p>Note: on the requirements.txt I just leave it with this 2 lines:
+flask==3.0.3
+redis==5.0.8</p>
+<p>Final result:</p>
+<p>http://192.168.1.16:8080/prod/check →
+{&ldquo;env&rdquo;:&ldquo;prod&rdquo;,&ldquo;redis_host&rdquo;:&ldquo;redis-shared&rdquo;,&ldquo;redis_status&rdquo;:&ldquo;ok&rdquo;}</p>
+<p>http://192.168.1.16:8080/staging/check →
+{&ldquo;env&rdquo;:&ldquo;staging&rdquo;,&ldquo;redis_host&rdquo;:&ldquo;redis-shared&rdquo;,&ldquo;redis_status&rdquo;:&ldquo;ok&rdquo;}</p>
+<p>Everything connected cleanly — zero auth issues, instant response times.
+Redis wins this one 😄.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Category</th>
+          <th>Pain</th>
+          <th>Fix / Lesson</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Flask</td>
+          <td>Cached imports, missing <code>f</code></td>
+          <td>Always rebuild the image after code changes</td>
+      </tr>
+      <tr>
+          <td>Terraform</td>
+          <td>State cache</td>
+          <td><code>terraform taint</code> saves the day</td>
+      </tr>
+      <tr>
+          <td>NGINX</td>
+          <td>Route prefix issues</td>
+          <td>Trailing slashes fix everything</td>
+      </tr>
+      <tr>
+          <td>Postgres</td>
+          <td>Auth nightmares</td>
+          <td>Env vars only apply on first init, destroy volume to reset</td>
+      </tr>
+      <tr>
+          <td>Redis</td>
+          <td>Lightweight and instant</td>
+          <td>One ping = working setup</td>
+      </tr>
+      <tr>
+          <td>Overall</td>
+          <td>Debugging patience</td>
+          <td>The pain builds understanding, not just success</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="-final-verdict">✅ Final Verdict<a hidden class="anchor" aria-hidden="true" href="#-final-verdict">#</a></h3>
+<p>This project turned into a mini production-style cloud simulation:</p>
+<ul>
+<li><strong>Reverse proxy gateway (NGINX)</strong></li>
+<li><strong>Multiple isolated environments (prod/staging/dev)</strong></li>
+<li><strong>Shared backend service</strong></li>
+<li><strong>Infrastructure as Code (Terraform)</strong></li>
+<li><strong>Self-contained health endpoints</strong></li>
+</ul>
+<p>Not just a lab, this is a cloud playground for testing real-world concepts in isolation.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/terraform/">Terraform</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/docker/">Docker</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/flask/">Flask</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/nginx/">NGINX</a></li>
+      <li><a href="https://antonyflores88.github.io/my-lab-blog/tags/devops-lab/">DevOps Lab</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://antonyflores88.github.io/my-lab-blog/">Tony Cloud Journey</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
